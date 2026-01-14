@@ -823,7 +823,7 @@ int main()
                 config.controllerType = static_cast<ControllerType>(std::stoi(std::string(line.begin(), line.end())));
                 break;
             }
-            std::wcout << L"Invalid input. Please enter 1, 2, or 3.\n";
+            std::wcout << L"Invalid input. Please enter 1, 2, 3, or 4.\n";
         }
 
         if (config.controllerType == SingleJoyCon) {
