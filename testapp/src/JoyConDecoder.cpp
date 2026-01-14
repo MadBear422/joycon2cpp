@@ -325,6 +325,13 @@ constexpr uint64_t BUTTON_L_THUMB = 0x000008000000;
 constexpr uint64_t TRIGGER_LT_MASK = 0x000000800000;
 constexpr uint64_t TRIGGER_RT_MASK = 0x008000000000;
 
+constexpr uint64_t BUTTON_C_MASK = 0x000040000000;
+constexpr uint64_t BUTTON_SCREENSHOT_MASK = 0x000020000000;
+
+// NSO GameCube Controller Buttons
+constexpr uint64_t BUTTON_ZL_SHOULDER = 0x000000800000;
+constexpr uint64_t BUTTON_ZR_SHOULDER = 0x008000000000;
+
 DS4_REPORT_EX GenerateProControllerReport(const std::vector<uint8_t>& buffer)
 {
     DS4_REPORT_EX report{};
@@ -424,17 +431,17 @@ DS4_REPORT_EX GenerateNSOGCReport(const std::vector<uint8_t>& buffer)
         state = (state << 8) | buffer[i];
     }
 
-    if (state & BUTTON_A_MASK)        report.Report.wButtons |= DS4_BUTTON_CIRCLE;
-    if (state & BUTTON_B_MASK)        report.Report.wButtons |= DS4_BUTTON_TRIANGLE;
-    if (state & BUTTON_X_MASK)        report.Report.wButtons |= DS4_BUTTON_CROSS;
-    if (state & BUTTON_Y_MASK)        report.Report.wButtons |= DS4_BUTTON_SQUARE;
-    if (state & BUTTON_L_SHOULDER)    report.Report.wButtons |= DS4_BUTTON_SHOULDER_LEFT;
-    if (state & BUTTON_R_SHOULDER)    report.Report.wButtons |= DS4_BUTTON_SHOULDER_RIGHT;
+    if (state & BUTTON_A_MASK)        report.Report.wButtons |= DS4_BUTTON_CROSS;
+    if (state & BUTTON_B_MASK)        report.Report.wButtons |= DS4_BUTTON_CIRCLE;
+    if (state & BUTTON_X_MASK)        report.Report.wButtons |= DS4_BUTTON_SQUARE;
+    if (state & BUTTON_Y_MASK)        report.Report.wButtons |= DS4_BUTTON_TRIANGLE;
+    if (state & BUTTON_ZL_SHOULDER)   report.Report.wButtons |= DS4_BUTTON_SHOULDER_LEFT;
+    if (state & BUTTON_ZR_SHOULDER)   report.Report.wButtons |= DS4_BUTTON_SHOULDER_RIGHT;
     if (state & TRIGGER_LT_MASK)      report.Report.wButtons |= DS4_BUTTON_TRIGGER_LEFT;
     if (state & TRIGGER_RT_MASK)      report.Report.wButtons |= DS4_BUTTON_TRIGGER_RIGHT;
     if (state & BUTTON_L_THUMB)       report.Report.wButtons |= DS4_BUTTON_THUMB_LEFT;
     if (state & BUTTON_R_THUMB)       report.Report.wButtons |= DS4_BUTTON_THUMB_RIGHT;
-    if (state & BUTTON_BACK)          report.Report.wButtons |= DS4_BUTTON_SHARE;
+    if (state & BUTTON_C_MASK)        report.Report.wButtons |= DS4_BUTTON_SHARE;
     if (state & BUTTON_START)         report.Report.wButtons |= DS4_BUTTON_OPTIONS;
     if (state & BUTTON_GUIDE)         report.Report.bSpecial |= DS4_SPECIAL_BUTTON_PS;
 
